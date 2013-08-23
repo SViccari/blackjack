@@ -13,14 +13,13 @@ def build_deck
 		end
 	end
 
-	deck.shuffle
+	deck.sort
 end
 
 
 puts "Welcome to Blackjack!"
 deck = build_deck
 
-puts deck.last
 
 # next_card = deck.pop     #why is it running this? 
 
@@ -42,60 +41,123 @@ puts deck.last
 #if player sum == dealer sum, no one wins
 
 
-# ****Method 1*********
+# ****Method*********
 # def Deal
-# Two cards are dealt to the player
-# End 
+#    Deal one card
+# end
 # **********************
 
 
+# *****Method********
+# def calculate_score(hand)
+# 	gets the value of the hand
+# end
+# **********************
 
-# *****Method 2********
+
+# *****Method********
 # def display_score
-# 	display the value of each card
-# 	sum of current cards
+# 	puts calculate_score
+# end
+# **********************
+
+# *****Method********
+# def hit_or_stand(calculate_score)
+# 	if calculate_score < 21 
+#     puts "Do you want to Hit or Stand (H/S)?:"
+# end
+# **********************
+
+# input = gets.chomp
+
+# *****Method********
+# def validate_input
+#  validate if user entered H/S or h/s?
+#  if not, prompt user to press H or S. 
 # end
 # **********************
 
 
+# *****Method********
+# def hit
+# if input == "h" || "H"
+# 	call Method Deal
+# 	call Method calculate_score
+# 	call display_score
+# **********************
 
-# puts "Do you want to Hit or Stand (H/S)?:"
-# *****Method 3********
-# def correct_choice
-# did the user enter H or S?
-# if not, remind user to press H or S. 
+# *****Method********
+# def store_player_hand
+# 	player_hand = []
+# 	player_hand << deck.pop
 # end
 # **********************
 
 
-
-# *****Method 4********
-# def player_hit
-# 	add card 
-# 	calculate new sum
-# 	if over 21
-# 		puts "Bust! Game over..."
-# 		break
-# 	end
-# **********************
-
-
-# *****Method 5********
+# *****Method********
 # def stand
-# 	display players final score 
-# 	end turn
+# 	if input == "s" || "S"
+# 	puts "Okay. Standing."
 # end
 # **********************
 
 
-# *****Method 6********
+swith to dealer and add card(s) until card value >= 17
+call deal method
+call store_dealer_hand method
+call deal method
+call store_dealer_hand method
+call calculate_score method
+call stand method 
+
+
+# *****Method********
+# def store_dealer_hand
+# 	dealer_hand = []
+# 	dealer_hand << deck.pop
+# end
+# *********************
+
+*****Method******** ???Boolean Value? 
+def stand(dealer_score)
+	if dealer calculate score >= 17
+    puts "Dealer is done."
+  else
+    puts "Dealer will hit."
+end
+**********************
+
+
+# *****Method********
+# def bust(score)
+# 	is score > 21
+# 	puts "Sorry! You busted."
+# end
+# **********************
+
+
+# *****Method********
+# def winner(player_score,dealer_score) 
+# 	if player calculated score > dealer calculated score
+#     puts "You win!"
+# # elsif player calculated socre == dealer calculated score
+	  # puts "Its a tie!"
+	#else
+# 	  puts "Dealer wins!"
+# end
+# **********************
+
+
+
+
+
+# *****Method********
 # def dealer_hit
 # 	receive a new card until unless score >= 17
 # 	if over 21
 # 		puts "Bust! You win!"
 # end
 # **********************
-
 
 
 
