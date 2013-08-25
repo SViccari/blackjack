@@ -64,14 +64,15 @@ def dealer_turn
   end
       if @dealer_total > 21
         puts "Dealer busted. You win!"
+        exit
       else
         puts "Dealer is standing."
       end
 end 
 
 def validate_answer
-  @input = gets.chomp
-  while !/[hs]/.match(@input.downcase)
+  @input = gets.chomp.downcase
+  while !/[hs]/.match(@input)
     puts "Please enter H or S"
     @input=gets.chomp
   end
@@ -88,7 +89,7 @@ def hit_or_stand
     end
  end
       if @total > 21
-        puts "You loose!!!!!!! HOUSE WINS!"
+        @dealer_total = 30
       end
       if @input.match("s")
         puts "Okay. Dealer's turn."
@@ -105,6 +106,17 @@ def still_playing
   end
 end
 
+def winner
+  if @total == @dealer_total
+    puts "It's a tie."
+    elsif @total > @dealer_total && @total < 21
+      puts "You win!"
+    else 
+    puts "You lose!"
+  end
+end
+
+
 puts "Welcome to Blackjack!"
 @deck = build_deck
 @player_hand = []
@@ -119,34 +131,8 @@ print "Do you want to hit or stand (H/S):"
 validate_answer
 puts hit_or_stand
 still_playing
-
+puts winner
 
 
 #Ace = 1 or 11 points
-#dealer begins playing after the player chooses to stand
-#dealer can play unless they have 17...21
-#if dealer goes over 21, player wins
-#person with a sum closest to 21 wins
-#if player sum == dealer sum, no one wins
 
-
-# *****Method******** ???Boolean Value? 
-# def stand(dealer_score)
-#   if dealer calculate score >= 17
-#     puts "Dealer is done."
-#   else
-#     puts "Dealer will hit."
-# end
-# **********************
-
-
-# *****Method********
-# def winner(player_score,dealer_score) 
-#   if player calculated score > dealer calculated score
-#     puts "You win!"
-# # elsif player calculated socre == dealer calculated score
-    # puts "Its a tie!"
-  #else
-#     puts "Dealer wins!"
-# end
-# **********************
