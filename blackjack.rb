@@ -53,6 +53,8 @@ deal_player
 deal_player
 print calculate_player_score
 
+deal_dealer
+
 #Jack, Queen, King = 10pts
 #Ace = 1 or 11 points
 #player is dealt first
