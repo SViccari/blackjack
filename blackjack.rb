@@ -15,57 +15,43 @@ def build_deck
 	deck.shuffle
 end
 
-
 puts "Welcome to Blackjack!"
 @deck = build_deck
 @player_hand = []
 @dealer_hand = []
-@Jack = 10
-@Queen = 10
-@King = 10
-@Ace = 1
 
 
 def deal_player
   @card_dealt = @deck.pop
-  @player_hand << @card_dealt.chop.to_i
+  @player_hand << @card_dealt
   puts "Player was dealt #{@card_dealt}."
 end
 
 def deal_dealer
   @card_dealt = @deck.pop
-  @dealer_hand << @card_dealt.chop.to_i
+  @dealer_hand << @card_dealt
   puts "Dealer was dealt #{@card_dealt}."
 end
 
 
 def calculate_player_score
-  if ("J", "Q", "K").includes?(@player_hand)
-	@card_dealt = 10
-	end
-   @player_hand 
-# end
+  total = 0
+  @player_hand.each do |card|
+    value = card.chop
+  if ["J", "Q", "K"].include?(value)
+     total += 10
+  elsif value == "A" 
+    total +=1 
+  else
+    total += value.to_i
+  end
+end
+puts "Player total is #{total}"
+end
 
 deal_player
 deal_player
-print @player_hand
-
-
-# .chop 
-# .split
-
-  
-
-
-# def display_score
-#  	puts calculate_score
-#  end
-
-
-
-
-
-
+print calculate_player_score
 
 #Jack, Queen, King = 10pts
 #Ace = 1 or 11 points
@@ -80,13 +66,6 @@ print @player_hand
 #if dealer goes over 21, player wins
 #person with a sum closest to 21 wins
 #if player sum == dealer sum, no one wins
-
-
-# *****Method********
-# def calculate_score(hand)
-# 	gets the value of the hand
-# end
-# **********************
 
 
 # *****Method********
