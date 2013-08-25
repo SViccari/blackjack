@@ -15,12 +15,6 @@ def build_deck
 	deck.shuffle
 end
 
-puts "Welcome to Blackjack!"
-@deck = build_deck
-@player_hand = []
-@dealer_hand = []
-
-
 def deal_player
   @card_dealt = @deck.pop
   @player_hand << @card_dealt
@@ -32,7 +26,6 @@ def deal_dealer
   @dealer_hand << @card_dealt
   puts "Dealer was dealt #{@card_dealt}."
 end
-
 
 def calculate_player_score
   total = 0
@@ -46,12 +39,65 @@ def calculate_player_score
     total += value.to_i
   end
 end
-puts "Player total is #{total}"
+puts "Player score is: #{total}"
 end
+
+def validate_answer
+  @input = gets.chomp
+  while !/[hs]/.match (@input.downcase)
+    puts "Please enter H or S"
+    @input=gets.chomp
+  end
+  @input
+end
+
+def hit_or_stand
+  while @input.match ("h")
+    deal_player
+    puts calculate_player_score
+    print "Do you want to hit or stand (H/S):"
+    validate_answer
+    until @input.match ("s")
+      break
+    end 
+  end
+end
+
+puts "Welcome to Blackjack!"
+@deck = build_deck
+@player_hand = []
+@dealer_hand = []
 
 deal_player
 deal_player
-print calculate_player_score
+puts calculate_player_score
+
+print "Do you want to hit or stand (H/S):"
+
+validate_answer
+hit_or_stand
+
+deal_dealer
+deal_dealer
+calculater_dealer_score
+
+
+
+# def hit_or_stand 
+#   input = gets.chomp
+#     while input.downcase == "h"
+#       deal_player
+#       print calculate_player_score
+
+#   else 
+#     reprint score
+#     puts "OK standing.."
+#   end
+# end
+
+#   deal dealer
+
+
 
 #Jack, Queen, King = 10pts
 #Ace = 1 or 11 points
@@ -171,4 +217,4 @@ print calculate_player_score
 # 		puts "Bust! You win!"
 # end
 # **********************
-
+#
