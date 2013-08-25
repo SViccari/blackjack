@@ -12,18 +12,59 @@ def build_deck
 			deck.push(value + suit)
 		end
 	end
-
-	deck.sort
+	deck.shuffle
 end
 
 
 puts "Welcome to Blackjack!"
-deck = build_deck
+@deck = build_deck
+@player_hand = []
+@dealer_hand = []
+@Jack = 10
+@Queen = 10
+@King = 10
+@Ace = 1
 
 
-# next_card = deck.pop     #why is it running this? 
+def deal_player
+  @card_dealt = @deck.pop
+  @player_hand << @card_dealt.chop.to_i
+  puts "Player was dealt #{@card_dealt}."
+end
 
-# puts next_card
+def deal_dealer
+  @card_dealt = @deck.pop
+  @dealer_hand << @card_dealt.chop.to_i
+  puts "Dealer was dealt #{@card_dealt}."
+end
+
+
+def calculate_player_score
+  if ("J", "Q", "K").includes?(@player_hand)
+	@card_dealt = 10
+	end
+   @player_hand 
+# end
+
+deal_player
+deal_player
+print @player_hand
+
+
+# .chop 
+# .split
+
+  
+
+
+# def display_score
+#  	puts calculate_score
+#  end
+
+
+
+
+
 
 
 #Jack, Queen, King = 10pts
@@ -39,13 +80,6 @@ deck = build_deck
 #if dealer goes over 21, player wins
 #person with a sum closest to 21 wins
 #if player sum == dealer sum, no one wins
-
-
-# ****Method*********
-# def Deal
-#    Deal one card
-# end
-# **********************
 
 
 # *****Method********
@@ -101,34 +135,34 @@ deck = build_deck
 # end
 # **********************
 
-
-swith to dealer and add card(s) until card value >= 17
-call deal method
-call store_dealer_hand method
-call deal method
-call store_dealer_hand method
-call calculate_score method
-call stand method 
-
-
-# *****Method********
-# def store_dealer_hand
-# 	dealer_hand = []
-# 	dealer_hand << deck.pop
+# 
+# swith to dealer and add card(s) until card value >= 17
+# call deal method
+# call store_dealer_hand method
+# call deal method
+# call store_dealer_hand method
+# call calculate_score method
+# call stand method 
+# 
+# 
+# # *****Method********
+# # def store_dealer_hand
+# #   dealer_hand = []
+# #   dealer_hand << deck.pop
+# # end
+# # *********************
+# 
+# *****Method******** ???Boolean Value? 
+# def stand(dealer_score)
+#   if dealer calculate score >= 17
+#     puts "Dealer is done."
+#   else
+#     puts "Dealer will hit."
 # end
-# *********************
-
-*****Method******** ???Boolean Value? 
-def stand(dealer_score)
-	if dealer calculate score >= 17
-    puts "Dealer is done."
-  else
-    puts "Dealer will hit."
-end
-**********************
-
-
-# *****Method********
+# **********************
+# 
+# 
+# # *****Method********
 # def bust(score)
 # 	is score > 21
 # 	puts "Sorry! You busted."
@@ -158,21 +192,4 @@ end
 # 		puts "Bust! You win!"
 # end
 # **********************
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
