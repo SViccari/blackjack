@@ -28,18 +28,18 @@ def deal_dealer
 end
 
 def calculate_player_score
-  total = 0
+  @total = 0
   @player_hand.each do |card|
     value = card.chop
   if ["J", "Q", "K"].include?(value)
-     total += 10
+     @total += 10
   elsif value == "A" 
-    total +=1 
+    @total +=1 
   else
-    total += value.to_i
+    @total += value.to_i
   end
 end
-puts "Player score is: #{total}"
+puts "Player score is: #{@total}"
 end
 
 def validate_answer
@@ -55,13 +55,23 @@ def hit_or_stand
   while @input.match ("h")
     deal_player
     puts calculate_player_score
-    print "Do you want to hit or stand (H/S):"
-    validate_answer
-    until @input.match ("s")
-      break
-    end 
+      if @total > 21
+        puts "You loose!!!!!!! HOUSE WINS!"
+        break
+      elsif
+        print "Do you want to hit or stand (H/S):"
+        validate_answer
+      end
+  until @input.match ("s")
+    break
+  end 
   end
 end
+
+
+
+
+
 
 puts "Welcome to Blackjack!"
 @deck = build_deck
@@ -77,9 +87,16 @@ print "Do you want to hit or stand (H/S):"
 validate_answer
 hit_or_stand
 
-deal_dealer
-deal_dealer
-calculater_dealer_score
+
+#deal_dealer
+# deal_dealer
+# calculater_dealer_score
+
+
+
+
+
+
 
 
 
