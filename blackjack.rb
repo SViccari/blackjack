@@ -69,7 +69,6 @@ def dealer_turn
       end
 end 
 
-
 def validate_answer
   @input = gets.chomp
   while !/[hs]/.match(@input.downcase)
@@ -80,27 +79,31 @@ def validate_answer
 end
 
 def hit_or_stand
-  while @input.match("h")
+  while @input.match("h") && @total < 21
     deal_player
     puts calculate_player_score
+    if @total < 21
+      print "Do you want to hit or stand (H/S):"
+      validate_answer
+    end
+ end
       if @total > 21
         puts "You loose!!!!!!! HOUSE WINS!"
-        break
-      elsif
-        puts "Do you want to hit or stand (H/S):"
-        validate_answer
       end
-  until @input.match("s")
-    break
-  end
-  end
-    puts "Okay. Dealer's turn."
+      if @input.match("s")
+        puts "Okay. Dealer's turn."
+      end
 end 
 
-
-
-
-
+def still_playing
+  if @total > 21
+  else 
+    deal_dealer
+    deal_dealer
+    calculate_dealer_score
+    puts dealer_turn
+  end
+end
 
 puts "Welcome to Blackjack!"
 @deck = build_deck
@@ -115,12 +118,7 @@ print "Do you want to hit or stand (H/S):"
 
 validate_answer
 puts hit_or_stand
-
-
-deal_dealer
-deal_dealer
-calculate_dealer_score
-puts dealer_turn
+still_playing
 
 
 
