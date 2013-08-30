@@ -30,32 +30,38 @@ end
 def calculate_player_score
   @total = 0
   @player_hand.each do |card|
-    value = card.chop
-  if ["J", "Q", "K"].include?(value)
-     @total += 10
-  elsif value == "A" 
-    @total +=1 
-  else
-    @total += value.to_i
+    player_value = card.chop
+    if ["J", "Q", "K"].include?(player_value)
+      @total += 10
+    elsif player_value.include?('A') && @total < 11
+      @total += 11
+    elsif player_value.include?('A') && @total >= 11
+      @total += 1
+    else
+      @total += player_value.to_i
+    end
   end
-end
-puts "Player score is: #{@total}"
 end
 
 def calculate_dealer_score
   @dealer_total = 0
   @dealer_hand.each do |card|
-    value = card.chop
-  if ["J", "Q", "K"].include?(value)
-     @dealer_total += 10
-  elsif value == "A" 
-    @dealer_total +=1 
-  else
-    @dealer_total += value.to_i
-  end
-end
+  value = card.chop
+    if ["J", "Q", "K"].include?(value)
+      @dealer_total += 10
+    elsif value.include?('A') && @dealer_total < 11
+      @dealer_total += 11
+    elsif value.include?('A') && @dealer_total >= 11
+      @dealer_total += 1   
+    elsif value == "A" 
+      @dealer_total +=1 
+    else
+      @dealer_total += value.to_i
+    end
+ end
 puts "Dealer score is: #{@dealer_total}"
 end
+
 
 def dealer_turn
   while @dealer_total < 17
@@ -82,7 +88,8 @@ end
 def hit_or_stand
   while @input.match("h") && @total < 21
     deal_player
-    puts calculate_player_score
+    calculate_player_score
+    puts "Player score is: #{@total}"
     if @total < 21
       print "Do you want to hit or stand (H/S):"
       validate_answer
@@ -109,10 +116,10 @@ end
 def winner
   if @total == @dealer_total
     puts "It's a tie."
-    elsif @total > @dealer_total && @total < 21
+    elsif @total > @dealer_total && @total <= 21
       puts "You win!"
     else 
-    puts "You lose!"
+      puts "House wins! You lose!"
   end
 end
 
@@ -124,7 +131,9 @@ puts "Welcome to Blackjack!"
 
 deal_player
 deal_player
-puts calculate_player_score
+calculate_player_score
+
+puts "Player score is: #{@total}"
 
 print "Do you want to hit or stand (H/S):"
 
@@ -134,5 +143,4 @@ still_playing
 puts winner
 
 
-#Ace = 1 or 11 points
 
