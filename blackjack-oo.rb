@@ -1,4 +1,5 @@
 require 'pry'
+# ***************************************
 class Deck
   attr_reader :card_deck
   SUITS = ['♠', '♣', '♥', '♦']
@@ -15,7 +16,7 @@ class Deck
         @card_deck.push(Card.new(suit,value))
       end
     end
-    @card_deck.shuffle
+    @card_deck.shuffle!
   end
 
   def pop
@@ -23,6 +24,7 @@ class Deck
   end
 end
 
+# ***************************************
 class Card
   attr_reader :suit, :value
   def initialize(suit, value)
@@ -31,12 +33,15 @@ class Card
   end
 end
 
+# ***************************************
 class Hand
   attr_reader :score, :cards
+
   def initialize(name)
     @cards = []
     @name = name
   end
+
   def hit(card)
     @cards << card
   end
@@ -45,22 +50,17 @@ class Hand
   end
 
   def score
-    new_score = 0
+    score = 0
     @cards.each do |card|
-      new_score += card.value.to_i
-
-  # binding.pry 
-
+      score += card.value.to_i
     end
-    new_score 
+    puts score 
   end
 
   def busted?
   end
 end
-
-
-
+# ***************************************
 class Game
   def initialize(deck)
     @deck = deck
@@ -70,16 +70,24 @@ class Game
     @player_hand
   end
 
+ def dealer_hand
+    @dealer_hand
+  end
+
   def deal
     @deck.build_deck
     @player_hand = Hand.new('player')
     @dealer_hand = Hand.new('dealer')
     @player_hand.hit(@deck.pop)
     @player_hand.hit(@deck.pop)
+    @player_hand.score
   end
 end
 
 game = Game.new(Deck.new)
-game.deal
-puts game.player_hand.cards.inspect
+puts game.deal
+# puts game.player_hand.cards.inspect
+puts game.player_hand.inspect
+puts game.dealer_hand.inspect
+
 
