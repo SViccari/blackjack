@@ -24,18 +24,44 @@ class Deck
   end
 end
 
+
 # ***************************************
 class Card
-  attr_reader :suit, :value
   def initialize(suit, value)
     @suit = suit
     @value = value
   end
+
+  def suit
+    @suit
+  end
+
+  def value
+    @value
+  end
+
+  def show_card
+    @suit + " " + @value
+  end
+
+  def face_value
+    if ['J', 'Q','K'].include?(@value)
+      10
+    elsif ['A'].include?(@value) 
+      1
+    else
+      @value.to_i
+    end
+  end
+
+  def ace?
+   face_value == 1 
+  end
 end
+
 
 # ***************************************
 class Hand
-  attr_reader :score, :cards
 
   def initialize(name)
     @cards = []
@@ -46,20 +72,36 @@ class Hand
     @cards << card
   end
 
-  def stay
+  def cards
+    # @cards.each do |card|
+    #   puts card.show_card
+    # end
+    # print @cards
+    # @cards.map(&:show_card)
   end
 
   def score
     score = 0
     @cards.each do |card|
-      score += card.value.to_i
+      score += card.face_value 
+      if score <= 11 && card.ace?
+        score += 10
+      end 
     end
-    puts score 
+    score 
   end
 
   def busted?
+    score > 21
+  end
+
+  def output_cards 
+    puts "#{@name} score #{score}."
+    puts cards
   end
 end
+
+
 # ***************************************
 class Game
   def initialize(deck)
@@ -77,17 +119,50 @@ class Game
   def deal
     @deck.build_deck
     @player_hand = Hand.new('player')
-    @dealer_hand = Hand.new('dealer')
     @player_hand.hit(@deck.pop)
     @player_hand.hit(@deck.pop)
-    @player_hand.score
+    @player_hand.output_cards
+    deal_dealer
+    prompt_player
   end
+
+  def deal_dealer
+    @dealer_hand = Hand.new('dealer')
+    @dealer_hand.hit(@deck.pop)
+    @dealer_hand.hit(@deck.pop)
+    puts "Dealer score #{@dealer_hand.score}."
+  end
+
+  def prompt_player
+    puts "Do you want to hit or stand (H/S)?"
+    choice = gets.chomp.downcase
+    while !/[hs]/.match(choice)
+      puts "Please enter H or S"
+      choice=gets.chomp
+    end
+    hit_or_stand(choice)
+  end
+
+  def hit_or_stand(choice)
+    while choice.match("h") && @player_hand.score <= 21
+      @player_hand.hit(@deck.pop)
+      puts "Player score is: #{@player_hand.score}"
+      if !@player_hand.busted?
+        prompt_player 
+      end
+    end
+    if choice.match("s")
+      puts "Okay. Dealer's turn."
+    end
+  end 
 end
 
 game = Game.new(Deck.new)
 puts game.deal
 # puts game.player_hand.cards.inspect
-puts game.player_hand.inspect
-puts game.dealer_hand.inspect
+puts "player cards;"
+puts game.player_hand.cards.inspect
+puts "dealer cards;"
+puts game.dealer_hand.cards.inspect
 
 
